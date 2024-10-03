@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import {  useState } from "react";
+import Modal from "./Modal/Modal";
+import "./App.css";
+import Options from "./Components/Options";
+import Description from "./Components/Description";
+import Feedback from "./Components/Feedback";
+import Notification from "./Components/Notification";
 function App() {
-  const [count, setCount] = useState(0)
+  const [feedbacks, setFeedbacks] = useState({ good: 0, neutral: 0, bad: 0 });
+
+const [IsModalOpen, setIsModalOpen] = useState(false);
+
+  const onAddFeedback = (FeedbackName) => {
+    setFeedbacks({ ...feedbacks, [FeedbackName]: feedbacks[FeedbackName] + 1 });
+  };
+  const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
+
+ //const TotalFeedback = feedbacks.bad + feedbacks.good + feedbacks.neutral;
+  // const TotalFeedback = ({ feedbacks }) => {
+  //   return feedbacks.bad + feedbacks.good + feedbacks.neutral; };
+
+  // if (FeedbackName === "good")
+  //    { setFeedbacks({...feedbacks, good:feedbacks.good + 1})} ;
+
+  // if (FeedbackName === "neutral")
+  //   {  setFeedbacks({...feedbacks, neutral:feedbacks.neutral + 1}) };
+
+  // if (FeedbackName === "bad")
+  //   { setFeedbacks({...feedbacks, bad:feedbacks.bad + 1})} ;
+
+  const modalOpen = ()=> {
+    setIsModalOpen(true);
+  }
+    const onCloseModal = ()=>{
+      setIsModalOpen(false);
+    }
+const IsReset =()=>{
+  setFeedbacks({ good: 0, neutral: 0, bad: 0 });
+}
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React is amaising!!</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <Description />
+        <Options
+          onAddFeedback={onAddFeedback}
+          feedbacks={feedbacks}
+          IsReset={IsReset}
+          totalFeedback={totalFeedback}
+        />
+
+        { totalFeedback!==0 ?<Feedback feedbacks={feedbacks} /> : <Notification/>}
+
+               
+        <button type="button" onClick={modalOpen}>open modal</button>
+        {IsModalOpen && <Modal onCloseModal={onCloseModal}/>}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

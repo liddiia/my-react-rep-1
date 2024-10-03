@@ -1,0 +1,45 @@
+.backdrop{
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modalBody{
+
+    background-color: aquamarine;
+    border-radius: 15px;
+    overflow: auto;
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+    position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%) ;
+}
+
+.modalTitle {
+    font-size: 18px;
+    color: blue;
+
+}
+
+
+.modalCloseButton{
+    border: 2px solid blue;
+    border-radius: 15px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.modalButton{
+    color: aliceblue;
+    background-color: black;
+    padding: 5px;
+}
+
+.modalText{
+    font-size: 14px;
+    color: black;
+
+}
